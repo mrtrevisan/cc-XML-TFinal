@@ -1,0 +1,217 @@
+{
+  "?xml": {
+    "@version": "1.0",
+    "@encoding": "UTF-8"
+  },
+  "nfeProc": {
+    "@xmlns": "http://www.portalfiscal.inf.br/nfe",
+    "@versao": "2.00",
+    "NFe": {
+      "@xmlns": "http://www.portalfiscal.inf.br/nfe",
+      "infNFe": {
+        "@Id": "NFe35130743708379006485550050005663981000000013",
+        "@versao": "2.00",
+        "ide": {
+          "cUF": "35",
+          "cNF": "00000001",
+          "natOp": "VENDA MERC.SUBTRB.UF VM",
+          "indPag": "0",
+          "mod": "55",
+          "serie": "5",
+          "nNF": "566398",
+          "dEmi": "2013-07-02",
+          "tpNF": "1",
+          "cMunFG": "3509205",
+          "tpImp": "2",
+          "tpEmis": "1",
+          "cDV": "3",
+          "tpAmb": "1",
+          "finNFe": "1",
+          "procEmi": "0",
+          "verProc": "NeoGrid NFe 1.16.1.1"
+        },
+        "emit": {
+          "CNPJ": "43708379006485",
+          "xNome": "FAST SHOP S.A.",
+          "xFant": "FAST SHOP S.A.",
+          "enderEmit": {
+            "xLgr": "ANHANGUERA",
+            "nro": "S.N",
+            "xCpl": "KM 37.5",
+            "xBairro": "JORDANESIA",
+            "cMun": "3509205",
+            "xMun": "CAJAMAR",
+            "UF": "SP",
+            "CEP": "07750000",
+            "cPais": "1058",
+            "xPais": "Brasil",
+            "fone": "1132323200"
+          },
+          "IE": "241091299113",
+          "CRT": "3"
+        },
+        "dest": {
+          "CPF": "12345678900",
+          "xNome": "GIOVANI LIBRELOTTO",
+          "enderDest": {
+            "xLgr": "AV RORAIMA",
+            "nro": "1000",
+            "xCpl": "SALA 387",
+            "xBairro": "CAMOBI",
+            "cMun": "4316907",
+            "xMun": "SANTA MARIA",
+            "UF": "RS",
+            "CEP": "97010041",
+            "cPais": "1058",
+            "xPais": "Brasil",
+            "fone": "5591234567"
+          },
+          "IE": "ISENTO",
+          "email": "librelotto@mail.com"
+        },
+        "entrega": {
+          "CPF": "12345678900",
+          "xLgr": "AV RORAIMA",
+          "nro": "1000",
+          "xCpl": "SALA 387",
+          "xBairro": "CAMOBI",
+          "cMun": "4316907",
+          "xMun": "SANTA MARIA",
+          "UF": "RS"
+        },
+        "det": {
+          "@nItem": "1",
+          "prod": {
+            "cProd": "LG47LM6400",
+            "cEAN": "7893299100079",
+            "xProd": "SMART TV LED LCD 3D FHD 47P | 7893299100079| Rua: A",
+            "NCM": "85287200",
+            "CFOP": "6404",
+            "uCom": "PC",
+            "qCom": "1.0000",
+            "vUnCom": "2387.6800",
+            "vProd": "2387.68",
+            "cEANTrib": "7893299100079",
+            "uTrib": "PC",
+            "qTrib": "1.0000",
+            "vUnTrib": "2387.6800",
+            "vFrete": "51.80",
+            "indTot": "1"
+          },
+          "imposto": {
+            "ICMS": {
+              "ICMS60": {
+                "orig": "4",
+                "CST": "60",
+                "vBCSTRet": "2651.00",
+                "vICMSSTRet": "117.18"
+              }
+            },
+            "PIS": {
+              "PISAliq": {
+                "CST": "01",
+                "vBC": "2439.48",
+                "pPIS": "1.65",
+                "vPIS": "40.25"
+              }
+            },
+            "COFINS": {
+              "COFINSAliq": {
+                "CST": "01",
+                "vBC": "2439.48",
+                "pCOFINS": "7.60",
+                "vCOFINS": "185.40"
+              }
+            }
+          }
+        },
+        "total": {
+          "ICMSTot": {
+            "vBC": "0.00",
+            "vICMS": "0.00",
+            "vBCST": "0.00",
+            "vST": "0.00",
+            "vProd": "2387.68",
+            "vFrete": "51.80",
+            "vSeg": "0.00",
+            "vDesc": "0.00",
+            "vII": "0.00",
+            "vIPI": "0.00",
+            "vPIS": "40.25",
+            "vCOFINS": "185.40",
+            "vOutro": "0.00",
+            "vNF": "2439.48"
+          }
+        },
+        "transp": {
+          "modFrete": "1",
+          "transporta": {
+            "CNPJ": "02058135000303",
+            "xNome": "JOAO LUIZ DOS SANTOS LAGUNA",
+            "IE": "149732186112",
+            "xEnder": "R SD JOSE PIRES BARBOSA FILHO 24",
+            "xMun": "SAO PAULO",
+            "UF": "SP"
+          },
+          "vol": {
+            "qVol": "1",
+            "esp": "volume",
+            "pesoL": "20.900",
+            "pesoB": "20.900"
+          }
+        },
+        "infAdic": {
+          "infCpl": "Pedido: 145545 Tabela: 58 Vendedor: V102526 Usuario: TEFSITE Val. Aproximado\n                    dos Tributos - R$975,61 (40,86%). Fonte: IBPT. Obs: G: 000 00 Em ate 7 dias apos\n                    a entrega, se o produto apresentar defeito, a troca podera ser efetuada\n                    diretamente em qualquer das lojas da FAST SHOP no mesmo Estado de emissao do\n                    documento fiscal, desde que ausentes avarias ou danos aparentes, sem laudo\n                    tecnico ou procedimento de garantia previsto nos artigos 18 a 26 do Codigo de\n                    Defesa do Consumidor. A troca se dara mediante apresentacao da nota fiscal,\n                    embalagem original e acessorios. Essa troca em 7 dias, nas lojas, e sem maiores\n                    formalidades, e um especial beneficio aos nossos clientes, independentemente dos\n                    termos e prazos das garantias legal e/ou contratual previstas para o\n                    produto/servico (artigos 18 a 26 da lei 8.078/90). Substituicao Trib.ICMS item 1\n                    cf. RICMS Art 313-Z19"
+        }
+      },
+      "Signature": {
+        "@xmlns": "http://www.w3.org/2000/09/xmldsig#",
+        "SignedInfo": {
+          "CanonicalizationMethod": {
+            "@Algorithm": "http://www.w3.org/TR/2001/REC-xml-c14n-20010315"
+          },
+          "SignatureMethod": {
+            "@Algorithm": "http://www.w3.org/2000/09/xmldsig#rsa-sha1"
+          },
+          "Reference": {
+            "@URI": "#NFe35130743708379006485550050005663981000000013",
+            "Transforms": {
+              "Transform": [
+                {
+                  "@Algorithm": "http://www.w3.org/2000/09/xmldsig#enveloped-signature"
+                },
+                {
+                  "@Algorithm": "http://www.w3.org/TR/2001/REC-xml-c14n-20010315"
+                }
+              ]
+            },
+            "DigestMethod": {
+              "@Algorithm": "http://www.w3.org/2000/09/xmldsig#sha1"
+            },
+            "DigestValue": "s/uixIqU3qCYCsOaUntT3SsED3s="
+          }
+        },
+        "SignatureValue": "q5ez8xm5VTJaEymoYaly4x4MHyhmwPNpKhLAofFM7Ft8Y+wCvvX+Bh2O+Nvnlg0NXEFTOkYzErZ0AeEz9G/9X5CT3LX1R9iQ+sg81zMbiotPxac0VY1NVqm12Lz3s7+XnqYXOw4141rkOwDWHw2mcwkDIdELER9D13KFv6ERE0poUGkeVki4hRHbuES7WNBMFWNB+hYvQ2I/Yn33xX1jMIx41d1oqaV+cWCau+Hx9o20Ofd9YOvOEmy9Dwdo2eArLqzWYAsjHhlrYapDeubpXpSoc4qF6F1mWmMCwDBh3MXH1ejoeUqdJGG0EMIw/8pfHGk5S6QZ6aMvG0hsUCJcyQ==",
+        "KeyInfo": {
+          "X509Data": {
+            "X509Certificate": "MIIIQjCCBiqgAwIBAgIQDm0R6qTsIXspQjoXR5Z33TANBgkqhkiG9w0BAQsFADB0MQswCQYDVQQGEwJCUjETMBEGA1UEChMKSUNQLUJyYXNpbDEtMCsGA1UECxMkQ2VydGlzaWduIENlcnRpZmljYWRvcmEgRGlnaXRhbCBTLkEuMSEwHwYDVQQDExhBQyBDZXJ0aXNpZ24gTXVsdGlwbGEgRzUwHhcNMTIwODI4MDAwMDAwWhcNMTMwODI3MjM1OTU5WjCB0DELMAkGA1UEBhMCQlIxEzARBgNVBAoUCklDUC1CcmFzaWwxODA2BgNVBAsUL0F1dGVudGljYWRvIHBvciBDZXJ0aXNpZ24gQ2VydGlmaWNhZG9yYSBEaWdpdGFsMRswGQYDVQQLFBJBc3NpbmF0dXJhIFRpcG8gQTExFTATBgNVBAsUDElEIC0gMzU0NDQwMzEWMBQGA1UEAxMNRmFzdCBTaG9wIFMgQTEmMCQGCSqGSIb3DQEJARYXaW5mcmF0aUBmYXN0c2hvcC5jb20uYnIwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC8DuxgkTaOwF4ibXU2Z43Po6bYOfeLwWQxlrv8wNnwgCtXYw8EdIIda+JB3sPhA8QH1ld9XFCw4r+UC1EBppNJVRdAcn9LNUxC6zzka7CLPtDRXw12a+dh2AhSehMGGOs9mTTMo4z3osAheckv4Z1N3doEJgHy9YbJyV52+546KGs3/SjwEelxP04Rb3qtADqXdfRL6R+v6v/DfePWjH/5RQdi8JVJZKhf6qGWfYGLBfjutZc7JSr1CUEiffTNXptrTGkZmvkMJ809LQGvGSIrJ4CpJGmf1DWn0P46Npd90NkTBVvC+c5jZZ9jTLtXBXMb6Yp1Ry9WvzXotumq8f/xAgMBAAGjggNxMIIDbTCBtwYDVR0RBIGvMIGsoDgGBWBMAQMEoC8ELTAyMDMxOTU2MDAxNzk5MjM4OTcwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMKAjBgVgTAEDAqAaBBhNSUxUT04gS0FaVVlVS0kgS0FLVU1PVE+gGQYFYEwBAwOgEAQONDM3MDgzNzkwMDAxMDCgFwYFYEwBAwegDgQMMDAwMDAwMDAwMDAwgRdpbmZyYXRpQGZhc3RzaG9wLmNvbS5icjAJBgNVHRMEAjAAMB8GA1UdIwQYMBaAFJ1Qz73/JMqvsTPrF+JCeo5pKo5TMA4GA1UdDwEB/wQEAwIF4DCBiQYDVR0gBIGBMH8wfQYGYEwBAgELMHMwcQYIKwYBBQUHAgEWZWh0dHA6Ly9pY3AtYnJhc2lsLmNlcnRpc2lnbi5jb20uYnIvcmVwb3NpdG9yaW8vZHBjL0FDX0NlcnRpc2lnbl9NdWx0aXBsYS9EUENfQUNfQ2VydGlTaWduTXVsdGlwbGEucGRmMIIBJQYDVR0fBIIBHDCCARgwXKBaoFiGVmh0dHA6Ly9pY3AtYnJhc2lsLmNlcnRpc2lnbi5jb20uYnIvcmVwb3NpdG9yaW8vbGNyL0FDQ2VydGlzaWduTXVsdGlwbGFHNS9MYXRlc3RDUkwuY3JsMFugWaBXhlVodHRwOi8vaWNwLWJyYXNpbC5vdXRyYWxjci5jb20uYnIvcmVwb3NpdG9yaW8vbGNyL0FDQ2VydGlzaWduTXVsdGlwbGFHNS9MYXRlc3RDUkwuY3JsMFugWaBXhlVodHRwOi8vcmVwb3NpdG9yaW8uaWNwYnJhc2lsLmdvdi5ici9sY3IvQ2VydGlzaWduL0FDQ2VydGlzaWduTXVsdGlwbGFHNS9MYXRlc3RDUkwuY3JsMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDBDCBoAYIKwYBBQUHAQEEgZMwgZAwZAYIKwYBBQUHMAKGWGh0dHA6Ly9pY3AtYnJhc2lsLmNlcnRpc2lnbi5jb20uYnIvcmVwb3NpdG9yaW8vY2VydGlmaWNhZG9zL0FDX0NlcnRpc2lnbl9NdWx0aXBsYV9HNS5wN2MwKAYIKwYBBQUHMAGGHGh0dHA6Ly9vY3NwLmNlcnRpc2lnbi5jb20uYnIwDQYJKoZIhvcNAQELBQADggIBACl4Y5pqf5tvgXmcWYuWVMB5CnF8QUzYTMzIr6OcHJthybSjHCwNvKTY1jSeq2rqW/SuagkjuwTNrIGcY+4QYhb+gkc4z0dEtPcwCcrBSOSwYQ0cl5Q07+VD3crCUpoP14wKHJpzE3CW5n2MrK9rz326LD0UaVGV3yUChi5FjvyKW0/FqDmmRacbR1Z0RsZ5/upln8jDmC7lJv4QQh3mFQCzivLlrSuTztPRocwPpGi7a5edCgKhxiYddLPPPuuE70PtFYlSXOCc12GjXuD5cDEsA+kGDXpB2sG4Q1r/KFcnwMz1KdvY70+WaiJ4ygvSRkj+XA72EjPj1bhBwybOG4Fu/uGWOTslpf2p88UjH4Bk4XnFtU/EaP51DEeoW+R84DaTd13Doi5Ba+SN1X27wFG34RfMUEc8GqIamZdAuRgg8wbrhcU2cpEi80paqCWTvIGf9jEt8rWZHgl/gFf+e1Rv4iLnJliVZquSUr/hI324F7Q2tYpQqmhAbZvMn4gTP00FVF2aMQgYtJEJNjH2NkV4ZONCXs7z+7YI9FfHc11KLu/N0KybzfIHSeiS/SUfkqi3yvHW2Oo+VLrX/vbO+c+5BT3IHoWQimeN7LJzi5pkpXVXHFZcEinpECTFH30rL7HY3ndUTHGg/ktHlXUuNoE1jM/y5Wi9X3nOHkRoUKL6"
+          }
+        }
+      }
+    },
+    "protNFe": {
+      "@versao": "2.00",
+      "@xmlns": "http://www.portalfiscal.inf.br/nfe",
+      "infProt": {
+        "tpAmb": "1",
+        "verAplic": "5.0",
+        "chNFe": "35130743708379006485550050005663981000000013",
+        "dhRecbto": "2013-07-02T17:56:14",
+        "nProt": "135130390612170",
+        "digVal": "s/uixIqU3qCYCsOaUntT3SsED3s=",
+        "cStat": "100",
+        "xMotivo": "Autorizado o uso da NF-e"
+      }
+    }
+  }
+}

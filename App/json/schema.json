@@ -1,0 +1,655 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "?xml": {
+      "$ref": "#/definitions/?xml"
+    },
+    "nfeProc": {
+      "$ref": "#/definitions/NfeProc"
+    }
+  },
+  "definitions": {
+    "?xml": {
+      "type": "object",
+      "properties": {
+        "@version": {
+          "type": "string"
+        },
+        "@encoding": {
+          "type": "string"
+        }
+      }
+    },
+    "NfeProc": {
+      "type": "object",
+      "properties": {
+        "@xmlns": {
+          "type": "string"
+        },
+        "@versao": {
+          "type": "string"
+        },
+        "NFe": {
+          "$ref": "#/definitions/NFe"
+        },
+        "protNFe": {
+          "$ref": "#/definitions/ProtNFe"
+        }
+      }
+    },
+    "NFe": {
+      "type": "object",
+      "properties": {
+        "@xmlns": {
+          "type": "string"
+        },
+        "infNFe": {
+          "$ref": "#/definitions/InfNFe"
+        },
+        "Signature": {
+          "$ref": "#/definitions/Signature"
+        }
+      }
+    },
+    "InfNFe": {
+      "type": "object",
+      "properties": {
+        "@versao": {
+          "type": "string"
+        },
+        "@Id": {
+          "type": "string"
+        },
+        "ide": {
+          "$ref": "#/definitions/Ide"
+        },
+        "emit": {
+          "$ref": "#/definitions/Emit"
+        },
+        "dest": {
+          "$ref": "#/definitions/Dest"
+        },
+        "det": {
+          "$ref": "#/definitions/Det"
+        },
+        "total": {
+          "$ref": "#/definitions/Total"
+        },
+        "transp": {
+          "$ref": "#/definitions/Transp"
+        },
+        "infAdic": {
+          "$ref": "#/definitions/InfAdic"
+        }
+      }
+    },
+    "Ide": {
+      "type": "object",
+      "properties": {
+        "cUF": {
+          "type": "string"
+        },
+        "cNF": {
+          "type": "string"
+        },
+        "natOp": {
+          "type": "string"
+        },
+        "indPag": {
+          "type": "string"
+        },
+        "mod": {
+          "type": "string"
+        },
+        "serie": {
+          "type": "string"
+        },
+        "nNF": {
+          "type": "string"
+        },
+        "dEmi": {
+          "type": "string",
+          "format": "date"
+        },
+        "tpNF": {
+          "type": "string"
+        },
+        "cMunFG": {
+          "type": "string"
+        },
+        "tpImp": {
+          "type": "string"
+        },
+        "tpEmis": {
+          "type": "string"
+        },
+        "cDV": {
+          "type": "string"
+        },
+        "tpAmb": {
+          "type": "string"
+        },
+        "finNFe": {
+          "type": "string"
+        },
+        "procEmi": {
+          "type": "string"
+        },
+        "verProc": {
+          "type": "string"
+        }
+      }
+    },
+    "Emit": {
+      "type": "object",
+      "properties": {
+        "CNPJ": {
+          "type": "string"
+        },
+        "xNome": {
+          "type": "string"
+        },
+        "xFant": {
+          "type": "string"
+        },
+        "enderEmit": {
+          "$ref": "#/definitions/EnderEmit"
+        },
+        "IE": {},
+        "CRT": {
+          "type": "string"
+        }
+      }
+    },
+    "EnderEmit": {
+      "type": "object",
+      "properties": {
+        "xLgr": {
+          "type": "string"
+        },
+        "nro": {
+          "type": "string"
+        },
+        "xBairro": {
+          "type": "string"
+        },
+        "cMun": {
+          "type": "string"
+        },
+        "xMun": {
+          "type": "string"
+        },
+        "UF": {
+          "type": "string"
+        },
+        "CEP": {
+          "type": "string"
+        },
+        "cPais": {
+          "type": "string"
+        },
+        "xPais": {
+          "type": "string"
+        }
+      }
+    },
+    "Dest": {
+      "type": "object",
+      "properties": {
+        "CPF": {
+          "type": "string"
+        },
+        "xNome": {
+          "type": "string"
+        },
+        "enderDest": {
+          "$ref": "#/definitions/EnderDest"
+        },
+        "IE": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "EnderDest": {
+      "type": "object",
+      "properties": {
+        "xLgr": {
+          "type": "string"
+        },
+        "nro": {
+          "type": "string"
+        },
+        "xCpl": {
+          "type": "string"
+        },
+        "xBairro": {
+          "type": "string"
+        },
+        "cMun": {
+          "type": "string"
+        },
+        "xMun": {
+          "type": "string"
+        },
+        "UF": {
+          "type": "string"
+        },
+        "CEP": {
+          "type": "string"
+        },
+        "cPais": {
+          "type": "string"
+        },
+        "xPais": {
+          "type": "string"
+        },
+        "fone": {
+          "type": "string"
+        }
+      }
+    },
+    "Det": {
+      "type": [
+        "array",
+        "object"
+      ],
+      "properties": {
+        "@nItem": {
+          "type": "string"
+        },
+        "prod": {
+          "$ref": "#/definitions/Prod"
+        },
+        "imposto": {
+          "$ref": "#/definitions/Imposto"
+        },
+        "infAdProd": {
+          "type": "string"
+        }
+      }
+    },
+    "Prod": {
+      "type": "object",
+      "properties": {
+        "cProd": {
+          "type": "string"
+        },
+        "cEAN": {
+          "type": "string"
+        },
+        "xProd": {
+          "type": "string"
+        },
+        "NCM": {
+          "type": "string"
+        },
+        "CFOP": {
+          "type": "string"
+        },
+        "uCom": {
+          "type": "string"
+        },
+        "qCom": {
+          "type": "string"
+        },
+        "vUnCom": {
+          "type": "string"
+        },
+        "vProd": {
+          "type": "string"
+        },
+        "cEANTrib": {
+          "type": "string"
+        },
+        "uTrib": {
+          "type": "string"
+        },
+        "qTrib": {
+          "type": "string"
+        },
+        "vUnTrib": {
+          "type": "string"
+        },
+        "indTot": {
+          "type": "string"
+        }
+      }
+    },
+    "Imposto": {
+      "type": "object",
+      "properties": {
+        "ICMS": {
+          "$ref": "#/definitions/ICMS"
+        },
+        "IPI": {
+          "$ref": "#/definitions/IPI"
+        },
+        "PIS": {
+          "$ref": "#/definitions/PIS"
+        },
+        "COFINS": {
+          "$ref": "#/definitions/COFINS"
+        }
+      }
+    },
+    "ICMS": {
+      "type": "object",
+      "properties": {
+        "ICMS00": {
+          "$ref": "#/definitions/ICMS00"
+        }
+      }
+    },
+    "ICMS00": {
+      "type": "object",
+      "properties": {
+        "orig": {
+          "type": "string"
+        },
+        "CST": {
+          "type": "string"
+        },
+        "modBC": {
+          "type": "string"
+        },
+        "vBC": {
+          "type": "string"
+        },
+        "pICMS": {
+          "type": "string"
+        },
+        "vICMS": {
+          "type": "string"
+        }
+      }
+    },
+    "IPI": {
+      "type": "object",
+      "properties": {
+        "cEnq": {
+          "type": "string"
+        },
+        "IPINT": {
+          "$ref": "#/definitions/ICMS00"
+        }
+      }
+    },
+    "PIS": {
+      "type": "object",
+      "properties": {
+        "PISAliq": {
+          "$ref": "#/definitions/PISAliq"
+        }
+      }
+    },
+    "PISAliq": {
+      "type": "object",
+      "properties": {
+        "CST": {
+          "type": "string"
+        },
+        "vBC": {
+          "type": "string"
+        },
+        "pPIS": {
+          "type": "string"
+        },
+        "vPIS": {
+          "type": "string"
+        }
+      }
+    },
+    "COFINS": {
+      "type": "object",
+      "properties": {
+        "COFINSAliq": {
+          "$ref": "#/definitions/COFINSAliq"
+        }
+      }
+    },
+    "COFINSAliq": {
+      "type": "object",
+      "properties": {
+        "CST": {
+          "type": "string"
+        },
+        "vBC": {
+          "type": "string"
+        },
+        "pCOFINS": {
+          "type": "string"
+        },
+        "vCOFINS": {
+          "type": "string"
+        }
+      }
+    },
+    "Total": {
+      "type": "object",
+      "properties": {
+        "ICMSTot": {
+          "$ref": "#/definitions/ICMSTot"
+        }
+      }
+    },
+    "ICMSTot": {
+      "type": "object",
+      "properties": {
+        "vBC": {
+          "type": "string"
+        },
+        "vICMS": {
+          "type": "string"
+        },
+        "vBCST": {
+          "type": "string"
+        },
+        "vST": {
+          "type": "string"
+        },
+        "vProd": {
+          "type": "string"
+        },
+        "vFrete": {
+          "type": "string"
+        },
+        "vSeg": {
+          "type": "string"
+        },
+        "vDesc": {
+          "type": "string"
+        },
+        "vII": {
+          "type": "string"
+        },
+        "vIPI": {
+          "type": "string"
+        },
+        "vPIS": {
+          "type": "string"
+        },
+        "vCOFINS": {
+          "type": "string"
+        },
+        "vOutro": {
+          "type": "string"
+        },
+        "vNF": {
+          "type": "string"
+        }
+      }
+    },
+    "Transp": {
+      "type": "object",
+      "properties": {
+        "modFrete": {
+          "type": "string"
+        },
+        "transporta": {
+          "$ref": "#/definitions/Emit"
+        },
+        "vol": {
+          "$ref": "#/definitions/Vol"
+        }
+      }
+    },
+    "Vol": {
+      "type": "object",
+      "properties": {
+        "qVol": {
+          "type": "string"
+        },
+        "pesoL": {
+          "type": "string"
+        },
+        "pesoB": {
+          "type": "string"
+        }
+      }
+    },
+    "InfAdic": {
+      "type": "object",
+      "properties": {
+        "infCpl": {
+          "type": "string"
+        }
+      }
+    },
+    "Signature": {
+      "type": "object",
+      "properties": {
+        "SignedInfo": {
+          "$ref": "#/definitions/SignedInfo"
+        },
+        "SignatureValue": {
+          "type": "string"
+        },
+        "KeyInfo": {
+          "$ref": "#/definitions/KeyInfo"
+        }
+      }
+    },
+    "SignedInfo": {
+      "type": "object",
+      "properties": {
+        "CanonicalizationMethod": {
+          "$ref": "#/definitions/CanonicalizationMethod"
+        },
+        "SignatureMethod": {
+          "$ref": "#/definitions/CanonicalizationMethod"
+        },
+        "Reference": {
+          "$ref": "#/definitions/Reference"
+        }
+      }
+    },
+    "CanonicalizationMethod": {
+      "type": "object",
+      "properties": {
+        "@Algorithm": {
+          "type": "string"
+        }
+      }
+    },
+    "Reference": {
+      "type": "object",
+      "properties": {
+        "@URI": {
+          "type": "string"
+        },
+        "Transforms": {
+          "$ref": "#/definitions/Transforms"
+        },
+        "DigestMethod": {
+          "$ref": "#/definitions/CanonicalizationMethod"
+        },
+        "DigestValue": {
+          "type": "string"
+        }
+      }
+    },
+    "Transforms": {
+      "type": "object",
+      "properties": {
+        "Transform": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Transform"
+          }
+        }
+      }
+    },
+    "Transform": {
+      "type": "object",
+      "properties": {
+        "@Algorithm": {
+          "type": "string"
+        }
+      }
+    },
+    "KeyInfo": {
+      "type": "object",
+      "properties": {
+        "X509Data": {
+          "$ref": "#/definitions/X509Data"
+        }
+      }
+    },
+    "X509Data": {
+      "type": "object",
+      "properties": {
+        "X509Certificate": {
+          "type": "string"
+        }
+      }
+    },
+    "ProtNFe": {
+      "type": "object",
+      "properties": {
+        "@versao": {
+          "type": "string"
+        },
+        "@xmlns": {
+          "type": "string"
+        },
+        "infProt": {
+          "$ref": "#/definitions/InfProt"
+        }
+      }
+    },
+    "InfProt": {
+      "type": "object",
+      "properties": {
+        "tpAmb": {
+          "type": "string"
+        },
+        "verAplic": {
+          "type": "string"
+        },
+        "chNFe": {
+          "type": "string"
+        },
+        "dhRecbto": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "nProt": {
+          "type": "string"
+        },
+        "digVal": {
+          "type": "string"
+        },
+        "cStat": {
+          "type": "string"
+        },
+        "xMotivo": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
