@@ -9,21 +9,60 @@ namespace trabalhoFinal
 {   
     class Program
     {
+        //path dos arquivos xml
+        static string[] xmlFiles = {
+            "xml/nota1.xml",
+            "xml/nota2.xml",
+            "xml/nota3.xml",
+            "xml/nota4.xml",
+            "xml/nota5.xml",
+            "xml/nota6.xml"
+        };
+
+        //path dos arquivos json
+        static string[] jsonFiles = {
+            "json/nota1.json",
+            "json/nota2.json",
+            "json/nota3.json",
+            "json/nota4.json",
+            "json/nota5.json",
+            "json/nota6.json"
+        };
+
+        //path do json schema
+        static string schemaFile = "json/schema.json";
+
         static void convertXml(){
-            for (int i = 1; i <= 6; i++){   
+            for (int i = 0; i < 6; i++){   
                 try
                 {
-                    string caminhoArquivoXML = "xml/nota" + i.ToString() + ".xml";
-                    string caminhoArquivoJSON = "json/nota" + i.ToString() + ".json";
+                    //path dos arquivos de input e output
+                    string XMLpath = xmlFiles[i];
+                    string JSONpath = jsonFiles[i];
 
-                    XmlDocument documentoXML = new XmlDocument();
-                    documentoXML.Load(caminhoArquivoXML);
+                    //inicializa um XmlDocument com o conteudo do arquivo XML
+                    XmlDocument XMLdoc = new XmlDocument();
+                    XMLdoc.Load(XMLpath);
 
-                    string json = JsonConvert.SerializeXmlNode(documentoXML, Newtonsoft.Json.Formatting.Indented);
+                    //converte para uma string json
+                    string jsonS = JsonConvert.SerializeXmlNode(XMLdoc, Newtonsoft.Json.Formatting.Indented);
 
-                    File.WriteAllText(caminhoArquivoJSON, json);
+                    //IMPORTANTE
+                    //passo importante na conversão, o objeto det precisa ser um array
+                    JObject jsonObj = JObject.Parse(jsonS);
+                    //força o objeto 'det' para sempre ser um array
+                    JToken dets = jsonObj["nfeProc"]["NFe"]["infNFe"]["det"];
+                    if (dets is JObject)
+                    {
+                        JArray array = [dets];
+                        jsonObj["nfeProc"]["NFe"]["infNFe"]["det"] = array;
+                        jsonS = jsonObj.ToString();
+                    }
 
-                    Console.WriteLine($"\t-> Arquivo XML {i} convertido para JSON com sucesso!");
+                    //salva o arquivo
+                    File.WriteAllText(JSONpath, jsonS);
+
+                    Console.WriteLine($"\t-> Arquivo XML {i+1} convertido para JSON com sucesso!");
                 }
                 catch (Exception ex)
                 {
@@ -35,29 +74,25 @@ namespace trabalhoFinal
         static void generateSchema(){
             try
             {
-                string caminhoSchema = "json/schema.json";
-                string caminhoArquivoXML = "xml/nota1.xml";
+                //escolhe um arquivo xml qualquer para gerar o json schema
+                string XMLpath = "xml/nota1.xml";
 
-                // Carregar o XML original
-                XDocument xml = XDocument.Load(caminhoArquivoXML);
+                //carrega o XML original
+                XDocument xmlDoc = XDocument.Load(XMLpath);
+                //converte o XML para JSON
+                string jsonS = JsonConvert.SerializeXNode(xmlDoc);
+                //gera o JSON Schema a partir da string Json
+                NJsonSchema.JsonSchema schema = NJsonSchema.JsonSchema.FromSampleJson(jsonS);
 
-                // Converter XML para JSON
-                string json = JsonConvert.SerializeXNode(xml);
-
-                // Converter o JSON para um objeto JToken
-                JToken jToken = JToken.Parse(json);
-
-                // Gerar o JSON Schema a partir do JToken
-                NJsonSchema.JsonSchema schema = NJsonSchema.JsonSchema.FromSampleJson(json);
-
-                //edita o tipo do "Det" para Array ou Object para validar todos os json
-                schema.Definitions["Det"].Type = JsonObjectType.Array | JsonObjectType.Object;
+                //IMPORTANTE
+                //edita o tipo do objeto "det" para Array
+                schema.Definitions["Det"].Type = JsonObjectType.Array;
 
                 // Converter o JSON Schema para string
-                string schemaString = schema.ToJson();
+                string schemaS = schema.ToJson();
 
                 //Cria o arquivo Json Schema
-                File.WriteAllText(caminhoSchema, schemaString);
+                File.WriteAllText(schemaFile, schemaS);
                 Console.WriteLine("\t-> JSON Schema gerado com sucesso!");
             }
             catch (Exception ex)
@@ -67,34 +102,33 @@ namespace trabalhoFinal
         }
 
         static void validateJson() {
-            for (int i = 1; i <= 6; i++){   
+            //carrega o JSON Schema 
+            string jsonSchema = File.ReadAllText(schemaFile);
+            //parse do JSON Schema
+            JSchema schema = JSchema.Parse(jsonSchema);
+
+            //valida cada arquivo Json
+            for (int i = 0; i < 6; i++){   
                 try
                 {
-                    // Carregar o JSON Schema que você gerou anteriormente
-                    string caminhoSchema = "json/schema.json";
-                    string jsonSchema = File.ReadAllText(caminhoSchema);
+                    //carregar o arquivo JSON 
+                    string JSONpath = jsonFiles[i];
+                    string jsonS = File.ReadAllText(JSONpath);
 
-                    // Carregar o arquivo JSON que você deseja validar
-                    string caminhoArquivoJSON = "json/nota" + i.ToString() + ".json";
-                    string json = File.ReadAllText(caminhoArquivoJSON);
+                    //parse do JSON para um objeto JToken
+                    JToken jToken = JToken.Parse(jsonS);
 
-                    // Parse do JSON Schema
-                    JSchema schema = JSchema.Parse(jsonSchema);
-
-                    // Parse do JSON para um objeto JToken
-                    JToken jToken = JToken.Parse(json);
-
-                    // Validar o JSON com base no esquema
+                    //valida o JSON com base no schema, os erros serão gravados numa lista
                     IList<string> messages;
                     bool isValid = jToken.IsValid(schema, out messages);
 
                     if (isValid)
                     {
-                        Console.WriteLine($"\t-> O arquivo JSON {i} é válido de acordo com o esquema!");
+                        Console.WriteLine($"\t-> O arquivo JSON {i+1} é válido de acordo com o esquema!");
                     }
                     else
                     {
-                        Console.WriteLine($"\t-> O arquivo JSON {i} NÃO é válido de acordo com o esquema.");
+                        Console.WriteLine($"\t-> O arquivo JSON {i+1} NÃO é válido de acordo com o esquema.");
                         foreach (var error in messages)
                         {
                             Console.WriteLine($"\t\t-- Erro: {error}");
@@ -108,15 +142,77 @@ namespace trabalhoFinal
             }
         }
 
+        static void query1(){
+            Console.WriteLine("Query 1: (a)Número de produtos em todas as notas e (b)Valor total dos produtos:");
+            int nProd = 0;
+            float tValue = .0f;
+            
+            for (int i = 0; i < 6; i++){
+                try
+                {
+                    string caminhoArquivoJSON = jsonFiles[i];
+                    string json = File.ReadAllText(caminhoArquivoJSON);
+                    // Parse do JSON para um objeto JObject
+                    JObject jsonObj = JObject.Parse(json);
+
+                    //JToken dets = jsonObj["nfeProc"]["NFe"]["infNFe"]["det"];
+                    JToken prods = jsonObj.SelectToken("$.nfeProc.NFe.infNFe.det");
+                    nProd += prods.Count();
+
+                    foreach(var prod in prods){
+                        tValue += (float)prod["prod"]["vProd"];
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Ocorreu um erro: " + ex.Message);
+                }
+            }
+            Console.WriteLine($"\ta) Total de produtos: {nProd}.\n\tb) Valor total dos produtos: {tValue}");
+        }
+
+        static void query2(){
+            Console.WriteLine("Query 2: (a)Total do ICMS, (b)Total de frete dos produtos:");
+            float vIcms = .0f;
+            float vFrete = .0f;
+
+            for (int i = 0; i < 6; i++){
+                try
+                {
+                    string caminhoArquivoJSON = jsonFiles[i];
+                    string json = File.ReadAllText(caminhoArquivoJSON);
+                    // Parse do JSON para um objeto JObject
+                    JObject jsonObj = JObject.Parse(json);
+
+                    JToken totais = jsonObj.SelectToken("$.nfeProc.NFe.infNFe.total.ICMSTot");
+                    vFrete += (float) totais["vFrete"];
+                    vIcms += (float) totais["vICMS"];
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Ocorreu um erro: " + ex.Message);
+                }
+            }
+            Console.WriteLine($"\ta) Total de ICSM: {vIcms}.\n\tb) Valor total de frete: {vFrete}.");
+
+        }
+
         static void Main(string[] args)
         {
+            Console.WriteLine("Conversão dos arquivos XML para JSON:");
             convertXml();
-            Console.WriteLine("===");
 
+            Console.WriteLine("-\nGeração do arquivo JSON Schema:");
             generateSchema();
-            Console.WriteLine("===");
-            
+
+            Console.WriteLine("-\nValidação dos arquivos JSON:");
             validateJson();
+            /*
+
+            Console.WriteLine("-\nQueries no JSON:");
+            query1();
+            query2();
+            */
         }
     }
 }

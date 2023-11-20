@@ -79,52 +79,54 @@
           "xMun": "SANTA MARIA",
           "UF": "RS"
         },
-        "det": {
-          "@nItem": "1",
-          "prod": {
-            "cProd": "LG47LM6400",
-            "cEAN": "7893299100079",
-            "xProd": "SMART TV LED LCD 3D FHD 47P | 7893299100079| Rua: A",
-            "NCM": "85287200",
-            "CFOP": "6404",
-            "uCom": "PC",
-            "qCom": "1.0000",
-            "vUnCom": "2387.6800",
-            "vProd": "2387.68",
-            "cEANTrib": "7893299100079",
-            "uTrib": "PC",
-            "qTrib": "1.0000",
-            "vUnTrib": "2387.6800",
-            "vFrete": "51.80",
-            "indTot": "1"
-          },
-          "imposto": {
-            "ICMS": {
-              "ICMS60": {
-                "orig": "4",
-                "CST": "60",
-                "vBCSTRet": "2651.00",
-                "vICMSSTRet": "117.18"
-              }
+        "det": [
+          {
+            "@nItem": "1",
+            "prod": {
+              "cProd": "LG47LM6400",
+              "cEAN": "7893299100079",
+              "xProd": "SMART TV LED LCD 3D FHD 47P | 7893299100079| Rua: A",
+              "NCM": "85287200",
+              "CFOP": "6404",
+              "uCom": "PC",
+              "qCom": "1.0000",
+              "vUnCom": "2387.6800",
+              "vProd": "2387.68",
+              "cEANTrib": "7893299100079",
+              "uTrib": "PC",
+              "qTrib": "1.0000",
+              "vUnTrib": "2387.6800",
+              "vFrete": "51.80",
+              "indTot": "1"
             },
-            "PIS": {
-              "PISAliq": {
-                "CST": "01",
-                "vBC": "2439.48",
-                "pPIS": "1.65",
-                "vPIS": "40.25"
-              }
-            },
-            "COFINS": {
-              "COFINSAliq": {
-                "CST": "01",
-                "vBC": "2439.48",
-                "pCOFINS": "7.60",
-                "vCOFINS": "185.40"
+            "imposto": {
+              "ICMS": {
+                "ICMS60": {
+                  "orig": "4",
+                  "CST": "60",
+                  "vBCSTRet": "2651.00",
+                  "vICMSSTRet": "117.18"
+                }
+              },
+              "PIS": {
+                "PISAliq": {
+                  "CST": "01",
+                  "vBC": "2439.48",
+                  "pPIS": "1.65",
+                  "vPIS": "40.25"
+                }
+              },
+              "COFINS": {
+                "COFINSAliq": {
+                  "CST": "01",
+                  "vBC": "2439.48",
+                  "pCOFINS": "7.60",
+                  "vCOFINS": "185.40"
+                }
               }
             }
           }
-        },
+        ],
         "total": {
           "ICMSTot": {
             "vBC": "0.00",

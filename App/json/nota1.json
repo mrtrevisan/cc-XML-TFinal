@@ -67,60 +67,62 @@
           "IE": "ISENTO",
           "email": "librelotto@mail.com"
         },
-        "det": {
-          "@nItem": "1",
-          "prod": {
-            "cProd": "025-1220-318-40",
-            "cEAN": "4051411545402",
-            "xProd": "Chuteira Puma Esito Finale IT",
-            "NCM": "64029990",
-            "CFOP": "6108",
-            "uCom": "PAR",
-            "qCom": "1",
-            "vUnCom": "94.91",
-            "vProd": "94.91",
-            "cEANTrib": "4051411545402",
-            "uTrib": "PAR",
-            "qTrib": "1",
-            "vUnTrib": "94.91",
-            "indTot": "1"
-          },
-          "imposto": {
-            "ICMS": {
-              "ICMS00": {
-                "orig": "2",
-                "CST": "00",
-                "modBC": "3",
-                "vBC": "94.91",
-                "pICMS": "18.00",
-                "vICMS": "17.08"
+        "det": [
+          {
+            "@nItem": "1",
+            "prod": {
+              "cProd": "025-1220-318-40",
+              "cEAN": "4051411545402",
+              "xProd": "Chuteira Puma Esito Finale IT",
+              "NCM": "64029990",
+              "CFOP": "6108",
+              "uCom": "PAR",
+              "qCom": "1",
+              "vUnCom": "94.91",
+              "vProd": "94.91",
+              "cEANTrib": "4051411545402",
+              "uTrib": "PAR",
+              "qTrib": "1",
+              "vUnTrib": "94.91",
+              "indTot": "1"
+            },
+            "imposto": {
+              "ICMS": {
+                "ICMS00": {
+                  "orig": "2",
+                  "CST": "00",
+                  "modBC": "3",
+                  "vBC": "94.91",
+                  "pICMS": "18.00",
+                  "vICMS": "17.08"
+                }
+              },
+              "IPI": {
+                "cEnq": "999",
+                "IPINT": {
+                  "CST": "53"
+                }
+              },
+              "PIS": {
+                "PISAliq": {
+                  "CST": "01",
+                  "vBC": "94.91",
+                  "pPIS": "1.65",
+                  "vPIS": "1.57"
+                }
+              },
+              "COFINS": {
+                "COFINSAliq": {
+                  "CST": "01",
+                  "vBC": "94.91",
+                  "pCOFINS": "7.60",
+                  "vCOFINS": "7.21"
+                }
               }
             },
-            "IPI": {
-              "cEnq": "999",
-              "IPINT": {
-                "CST": "53"
-              }
-            },
-            "PIS": {
-              "PISAliq": {
-                "CST": "01",
-                "vBC": "94.91",
-                "pPIS": "1.65",
-                "vPIS": "1.57"
-              }
-            },
-            "COFINS": {
-              "COFINSAliq": {
-                "CST": "01",
-                "vBC": "94.91",
-                "pCOFINS": "7.60",
-                "vCOFINS": "7.21"
-              }
-            }
-          },
-          "infAdProd": "EAN 4051411545402"
-        },
+            "infAdProd": "EAN 4051411545402"
+          }
+        ],
         "total": {
           "ICMSTot": {
             "vBC": "94.91",

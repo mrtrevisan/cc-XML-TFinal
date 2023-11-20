@@ -79,45 +79,47 @@
           "xMun": "SANTA MARIA",
           "UF": "RS"
         },
-        "det": {
-          "@nItem": "1",
-          "prod": {
-            "cProd": "AEMC838BEA",
-            "cEAN": "0885909453498",
-            "xProd": "CABO DE CONEXAO HDMI PRETO | 0885909453498| Rua: A",
-            "NCM": "85444200",
-            "CFOP": "5929",
-            "uCom": "PC",
-            "qCom": "1.0000",
-            "vUnCom": "47.0000",
-            "vProd": "47.00",
-            "cEANTrib": "0885909453498",
-            "uTrib": "PC",
-            "qTrib": "1.0000",
-            "vUnTrib": "47.0000",
-            "indTot": "1"
-          },
-          "imposto": {
-            "ICMS": {
-              "ICMS60": {
-                "orig": "2",
-                "CST": "60",
-                "vBCSTRet": "46.41",
-                "vICMSSTRet": "1.67"
-              }
+        "det": [
+          {
+            "@nItem": "1",
+            "prod": {
+              "cProd": "AEMC838BEA",
+              "cEAN": "0885909453498",
+              "xProd": "CABO DE CONEXAO HDMI PRETO | 0885909453498| Rua: A",
+              "NCM": "85444200",
+              "CFOP": "5929",
+              "uCom": "PC",
+              "qCom": "1.0000",
+              "vUnCom": "47.0000",
+              "vProd": "47.00",
+              "cEANTrib": "0885909453498",
+              "uTrib": "PC",
+              "qTrib": "1.0000",
+              "vUnTrib": "47.0000",
+              "indTot": "1"
             },
-            "PIS": {
-              "PISNT": {
-                "CST": "08"
-              }
-            },
-            "COFINS": {
-              "COFINSNT": {
-                "CST": "08"
+            "imposto": {
+              "ICMS": {
+                "ICMS60": {
+                  "orig": "2",
+                  "CST": "60",
+                  "vBCSTRet": "46.41",
+                  "vICMSSTRet": "1.67"
+                }
+              },
+              "PIS": {
+                "PISNT": {
+                  "CST": "08"
+                }
+              },
+              "COFINS": {
+                "COFINSNT": {
+                  "CST": "08"
+                }
               }
             }
           }
-        },
+        ],
         "total": {
           "ICMSTot": {
             "vBC": "0.00",

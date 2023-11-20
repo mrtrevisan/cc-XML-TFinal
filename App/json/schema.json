@@ -253,10 +253,7 @@
       }
     },
     "Det": {
-      "type": [
-        "array",
-        "object"
-      ],
+      "type": "array",
       "properties": {
         "@nItem": {
           "type": "string"
