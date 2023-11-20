@@ -51,11 +51,11 @@ namespace trabalhoFinal
                     //passo importante na conversão, o objeto det precisa ser um array
                     JObject jsonObj = JObject.Parse(jsonS);
                     //força o objeto 'det' para sempre ser um array
-                    JToken dets = jsonObj["nfeProc"]["NFe"]["infNFe"]["det"];
+                    JToken dets = jsonObj["nfeProc"]!["NFe"]!["infNFe"]!["det"]!;
                     if (dets is JObject)
                     {
                         JArray array = [dets];
-                        jsonObj["nfeProc"]["NFe"]["infNFe"]["det"] = array;
+                        jsonObj["nfeProc"]!["NFe"]!["infNFe"]!["det"] = array;
                         jsonS = jsonObj.ToString();
                     }
 
@@ -156,11 +156,11 @@ namespace trabalhoFinal
                     JObject jsonObj = JObject.Parse(json);
 
                     //JToken dets = jsonObj["nfeProc"]["NFe"]["infNFe"]["det"];
-                    JToken prods = jsonObj.SelectToken("$.nfeProc.NFe.infNFe.det");
+                    JToken prods = jsonObj.SelectToken("$.nfeProc.NFe.infNFe.det")!;
                     nProd += prods.Count();
 
                     foreach(var prod in prods){
-                        tValue += (float)prod["prod"]["vProd"];
+                        tValue += (float)prod["prod"]!["vProd"]!;
                     }
                 }
                 catch (Exception ex)
@@ -184,9 +184,9 @@ namespace trabalhoFinal
                     // Parse do JSON para um objeto JObject
                     JObject jsonObj = JObject.Parse(json);
 
-                    JToken totais = jsonObj.SelectToken("$.nfeProc.NFe.infNFe.total.ICMSTot");
-                    vFrete += (float) totais["vFrete"];
-                    vIcms += (float) totais["vICMS"];
+                    JToken totais = jsonObj.SelectToken("$.nfeProc.NFe.infNFe.total.ICMSTot")!;
+                    vFrete += (float) totais["vFrete"]!;
+                    vIcms += (float) totais["vICMS"]!;
                 }
                 catch (Exception ex)
                 {
