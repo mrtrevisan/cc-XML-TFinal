@@ -92,7 +92,7 @@ namespace Querier
             }
         }
 
-        public string QueryDetMaisBarato (string[] JsonFiles)
+        public string QueryProdMaisBarato (string[] JsonFiles)
         {
             float minValue = float.MaxValue;
             JToken? prodBarato = null;
