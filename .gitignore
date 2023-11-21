@@ -6,3 +6,7 @@
 x64/
 [Bb]in/
 [Oo]bj/
+
+html/*.html
+json/*.json
+index.html
