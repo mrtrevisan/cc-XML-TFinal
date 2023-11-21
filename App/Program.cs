@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Schema;
 using Newtonsoft.Json.Linq;
 using NJsonSchema;
+using System.Reflection.Emit;
 
 namespace trabalhoFinal
 {   
@@ -144,6 +145,7 @@ namespace trabalhoFinal
 
         static void query1(){
             Console.WriteLine("Query 1: (a)Número de produtos em todas as notas e (b)Valor total dos produtos:");
+
             int nProd = 0;
             float tValue = .0f;
             
@@ -155,7 +157,6 @@ namespace trabalhoFinal
                     // Parse do JSON para um objeto JObject
                     JObject jsonObj = JObject.Parse(json);
 
-                    //JToken dets = jsonObj["nfeProc"]["NFe"]["infNFe"]["det"];
                     JToken prods = jsonObj.SelectToken("$.nfeProc.NFe.infNFe.det")!;
                     nProd += prods.Count();
 
@@ -172,9 +173,11 @@ namespace trabalhoFinal
         }
 
         static void query2(){
-            Console.WriteLine("Query 2: (a)Total do ICMS, (b)Total de frete dos produtos:");
+            Console.WriteLine("Query 2: (a)Total do ICMS, (b)Valor aproximado de tributos e (c)Total de frete dos produtos:");
+
             float vIcms = .0f;
             float vFrete = .0f;
+            float vTrib = .0f;
 
             for (int i = 0; i < 6; i++){
                 try
@@ -187,18 +190,83 @@ namespace trabalhoFinal
                     JToken totais = jsonObj.SelectToken("$.nfeProc.NFe.infNFe.total.ICMSTot")!;
                     vFrete += (float) totais["vFrete"]!;
                     vIcms += (float) totais["vICMS"]!;
+                    vTrib += (float) totais["vICMS"]! + (float) totais["vIPI"]! + (float) totais["vPIS"]! + (float) totais["vCOFINS"]!;
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine("Ocorreu um erro: " + ex.Message);
                 }
             }
-            Console.WriteLine($"\ta) Total de ICSM: {vIcms}.\n\tb) Valor total de frete: {vFrete}.");
+            Console.WriteLine($"\ta) Total de ICSM: {vIcms}.\n\tb) Valor aproximado dos tributos: {vTrib}\n\tc) Valor total de frete: {vFrete}.");
 
+        }
+
+        static void query3(){
+            Console.WriteLine("Query 3: Detalhes do produto com menor preço:");
+
+            float minValue = float.MaxValue;
+            JToken? prodBarato = null;
+
+            for (int i = 0; i < 6; i++){
+                try
+                {
+                    string caminhoArquivoJSON = jsonFiles[i];
+                    string json = File.ReadAllText(caminhoArquivoJSON);
+                    // Parse do JSON para um objeto JObject
+                    JObject jsonObj = JObject.Parse(json);
+
+                    JToken dets = jsonObj.SelectToken("$.nfeProc.NFe.infNFe.det")!;
+
+                    foreach(var prod in dets){
+                        if ( (float) prod["prod"]!["vProd"]! < minValue){
+                            prodBarato = prod["prod"]!;
+                            minValue = (float) prod["prod"]!["vProd"]!;
+                        }
+                    }                
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Ocorreu um erro: " + ex.Message);
+                }
+            }
+            Console.WriteLine(prodBarato);
+        }
+
+        static void query4(){
+            Console.WriteLine("Query 4: Detalhes da nota com maior imposto:");
+
+            float maxImp = float.MinValue;
+            JToken? notaMaisTax = null;
+
+            for (int i = 0; i < 6; i++){
+                try
+                {
+                    string caminhoArquivoJSON = jsonFiles[i];
+                    string json = File.ReadAllText(caminhoArquivoJSON);
+                    // Parse do JSON para um objeto JObject
+                    JObject jsonObj = JObject.Parse(json);
+
+                    JToken total = jsonObj.SelectToken("$.nfeProc.NFe.infNFe.total.ICMSTot")!;
+
+                    float impNota = (float) total["vICMS"]! + (float) total["vIPI"]! + (float) total["vPIS"]! + (float) total["vCOFINS"]!;
+
+                    if ( impNota > maxImp ){
+                        notaMaisTax = total.Parent?.Parent?.Parent?.Parent!["det"];
+                        maxImp = impNota;
+                    }          
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Ocorreu um erro: " + ex.Message);
+                }
+            }
+            Console.WriteLine(notaMaisTax);
         }
 
         static void Main(string[] args)
         {
+            /*
+            */
             Console.WriteLine("Conversão dos arquivos XML para JSON:");
             convertXml();
 
@@ -207,12 +275,12 @@ namespace trabalhoFinal
 
             Console.WriteLine("-\nValidação dos arquivos JSON:");
             validateJson();
-            /*
 
-            Console.WriteLine("-\nQueries no JSON:");
+            Console.WriteLine("Queries no JSON:");
             query1();
             query2();
-            */
+            query3();
+            query4();
         }
     }
 }
