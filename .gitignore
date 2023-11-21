@@ -7,6 +7,6 @@ x64/
 [Bb]in/
 [Oo]bj/
 
-html/*.html
-json/*.json
-index.html
+App/html/*.html
+App/json/*.json
+App/index.html
