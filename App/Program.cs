@@ -1,17 +1,18 @@
-﻿using System.Xml;
-using System.Xml.Linq;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Schema;
+﻿using Converter;
+using Generator;
+using Validator;
+using Querier;
+
+using System.Text;
 using Newtonsoft.Json.Linq;
 using NJsonSchema;
-using System.Reflection.Emit;
 
 namespace trabalhoFinal
 {   
     class Program
     {
         //path dos arquivos xml
-        static string[] xmlFiles = {
+        static readonly string[] xmlFiles = {
             "xml/nota1.xml",
             "xml/nota2.xml",
             "xml/nota3.xml",
@@ -21,7 +22,7 @@ namespace trabalhoFinal
         };
 
         //path dos arquivos json
-        static string[] jsonFiles = {
+        static readonly string[] jsonFiles = {
             "json/nota1.json",
             "json/nota2.json",
             "json/nota3.json",
@@ -30,151 +31,134 @@ namespace trabalhoFinal
             "json/nota6.json"
         };
 
-        //path do json schema
-        static string schemaFile = "json/schema.json";
+        static readonly string[] htmlFiles = {
+            "html/nota1.html",
+            "html/nota2.html",
+            "html/nota3.html",
+            "html/nota4.html",
+            "html/nota5.html",
+            "html/nota6.html"
+        };
 
-        static void convertXml(){
-            for (int i = 0; i < 6; i++){   
-                try
-                {
-                    //path dos arquivos de input e output
-                    string XMLpath = xmlFiles[i];
-                    string JSONpath = jsonFiles[i];
+        static readonly string indexFile = "./index.html";
 
-                    //inicializa um XmlDocument com o conteudo do arquivo XML
-                    XmlDocument XMLdoc = new XmlDocument();
-                    XMLdoc.Load(XMLpath);
+        static readonly string schemaFile = "json/schema.json";
 
-                    //converte para uma string json
-                    string jsonS = JsonConvert.SerializeXmlNode(XMLdoc, Newtonsoft.Json.Formatting.Indented);
-
-                    //IMPORTANTE
-                    //passo importante na conversão, o objeto det precisa ser um array
-                    JObject jsonObj = JObject.Parse(jsonS);
-                    //força o objeto 'det' para sempre ser um array
-                    JToken dets = jsonObj["nfeProc"]!["NFe"]!["infNFe"]!["det"]!;
-                    if (dets is JObject)
-                    {
-                        JArray array = [dets];
-                        jsonObj["nfeProc"]!["NFe"]!["infNFe"]!["det"] = array;
-                        jsonS = jsonObj.ToString();
-                    }
-
-                    //salva o arquivo
-                    File.WriteAllText(JSONpath, jsonS);
-
-                    Console.WriteLine($"\t-> Arquivo XML {i+1} convertido para JSON com sucesso!");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("\t\t-- correu um erro: " + ex.Message);
-                }
-            }
-        }
-
-        static void generateSchema(){
-            try
-            {
-                //escolhe um arquivo xml qualquer para gerar o json schema
-                string XMLpath = "xml/nota1.xml";
-
-                //carrega o XML original
-                XDocument xmlDoc = XDocument.Load(XMLpath);
-                //converte o XML para JSON
-                string jsonS = JsonConvert.SerializeXNode(xmlDoc);
-                //gera o JSON Schema a partir da string Json
-                NJsonSchema.JsonSchema schema = NJsonSchema.JsonSchema.FromSampleJson(jsonS);
-
-                //IMPORTANTE
-                //edita o tipo do objeto "det" para Array
-                schema.Definitions["Det"].Type = JsonObjectType.Array;
-
-                // Converter o JSON Schema para string
-                string schemaS = schema.ToJson();
-
-                //Cria o arquivo Json Schema
-                File.WriteAllText(schemaFile, schemaS);
-                Console.WriteLine("\t-> JSON Schema gerado com sucesso!");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("\t\t-- Ocorreu um erro: " + ex.Message);
-            }
-        }
-
-        static void validateJson() {
-            //carrega o JSON Schema 
-            string jsonSchema = File.ReadAllText(schemaFile);
-            //parse do JSON Schema
-            JSchema schema = JSchema.Parse(jsonSchema);
-
-            //valida cada arquivo Json
-            for (int i = 0; i < 6; i++){   
-                try
-                {
-                    //carregar o arquivo JSON 
-                    string JSONpath = jsonFiles[i];
-                    string jsonS = File.ReadAllText(JSONpath);
-
-                    //parse do JSON para um objeto JToken
-                    JToken jToken = JToken.Parse(jsonS);
-
-                    //valida o JSON com base no schema, os erros serão gravados numa lista
-                    IList<string> messages;
-                    bool isValid = jToken.IsValid(schema, out messages);
-
-                    if (isValid)
-                    {
-                        Console.WriteLine($"\t-> O arquivo JSON {i+1} é válido de acordo com o esquema!");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"\t-> O arquivo JSON {i+1} NÃO é válido de acordo com o esquema.");
-                        foreach (var error in messages)
-                        {
-                            Console.WriteLine($"\t\t-- Erro: {error}");
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Ocorreu um erro: " + ex.Message);
-                }
-            }
-        }
-
-        static void query1(){
+        static void query1(JsonQuerier querier){
             Console.WriteLine("Query 1: (a)Número de produtos em todas as notas e (b)Valor total dos produtos:");
-
             int nProd = 0;
             float tValue = .0f;
-            
-            for (int i = 0; i < 6; i++){
-                try
-                {
-                    string caminhoArquivoJSON = jsonFiles[i];
-                    string json = File.ReadAllText(caminhoArquivoJSON);
-                    // Parse do JSON para um objeto JObject
-                    JObject jsonObj = JObject.Parse(json);
 
-                    JToken prods = jsonObj.SelectToken("$.nfeProc.NFe.infNFe.det")!;
-                    nProd += prods.Count();
-
-                    foreach(var prod in prods){
-                        tValue += (float)prod["prod"]!["vProd"]!;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Ocorreu um erro: " + ex.Message);
-                }
+            foreach(string jsonFile in jsonFiles)
+            {
+                nProd += querier.QueryNumProd(jsonFile);
+                tValue += querier.QueryTotalValue(jsonFile);
             }
+            
             Console.WriteLine($"\ta) Total de produtos: {nProd}.\n\tb) Valor total dos produtos: {tValue}");
         }
 
-        static void query2(){
+        static void query2(JsonQuerier querier){
             Console.WriteLine("Query 2: (a)Total do ICMS, (b)Valor aproximado de tributos e (c)Total de frete dos produtos:");
+            
+            float vIcms = .0f;
+            float vTrib = .0f;
+            float vFrete = .0f;
 
+            foreach(string jsonFile in jsonFiles)
+            {
+                vIcms += querier.QueryICMS(jsonFile);
+                vTrib += querier.QueryTributes(jsonFile);
+                vFrete += querier.QueryFrete(jsonFile);
+            }
+            
+            Console.WriteLine($"\ta) Total de ICSM: {vIcms}.\n\tb) Valor aproximado dos tributos: {vTrib}\n\tc) Valor total de frete: {vFrete}.");
+        }
+
+        static void query3(JsonQuerier querier){
+            Console.WriteLine("Query 3: Detalhes do produto com menor preço:");
+
+            
+            Console.WriteLine(prodBarato);
+        }
+
+        static void query4(JsonQuerier querier){
+            Console.WriteLine("Query 4: Detalhes da nota com maior imposto:");
+
+            Console.WriteLine(notaMaisTax);
+        }
+
+        static void createHTML(JObject jsonObj, int i, float vIcms, float vTrib)
+        {
+            // Criar um documento HTML simples com base nos dados do JSON
+            StringBuilder htmlBuilder = new StringBuilder();
+            string data = jsonObj.SelectToken(".nfeProc.NFe.infNFe.ide.dEmi")!.ToString();
+            float vNF = jsonObj.SelectToken(".nfeProc.NFe.infNFe.total.ICMSTot.vNF")!.Value<float>();
+
+            
+            // Adicionar cabeçalho do HTML
+            htmlBuilder.AppendLine("<!DOCTYPE html>");
+            htmlBuilder.AppendLine("<html>");
+            htmlBuilder.AppendLine($"<head><title>Nota Fiscal {i+1}</title></head>");
+            htmlBuilder.AppendLine("<body>");
+
+            // Iterar sobre os objetos JSON e adicionar ao HTML
+            htmlBuilder.AppendLine($"\t<h2>Nota fiscal {i+1}:</h2>");
+            htmlBuilder.AppendLine($"\t<p>Data de compra: {data}</p>");
+            htmlBuilder.AppendLine($"\t<h4>Produtos:</h4>");
+
+            var dets = jsonObj.SelectToken(".nfeProc.NFe.infNFe.det");
+            foreach (var prod in dets!)
+            {
+                htmlBuilder.AppendLine("\t<div>");
+                htmlBuilder.AppendLine($"\t\t<p>Nome: {prod["prod"]!["xProd"]!.ToString()}</p>");
+                htmlBuilder.AppendLine($"\t\t<p>Valor unitário: {prod["prod"]!["vProd"]!.ToString()}</p>");
+                htmlBuilder.AppendLine("\t</div>");
+            }
+            htmlBuilder.AppendLine($"\t<p>Valor total da nota: {vNF}</p>");
+
+            // Fechar o corpo e a tag HTML
+            htmlBuilder.AppendLine("</body>");
+            htmlBuilder.AppendLine("</html>");
+
+            File.WriteAllText(htmlFiles[i], htmlBuilder.ToString());
+        }
+
+        static void createHTMLindex(int nNotas, int nProd, float tValue, float vIcms, float vFrete, float vTrib){
+            StringBuilder htmlBuilder = new StringBuilder();
+
+            htmlBuilder.AppendLine("<!DOCTYPE html>");
+            htmlBuilder.AppendLine("<html>");
+            htmlBuilder.AppendLine("<head><title>Notas Fiscais</title></head>");
+            htmlBuilder.AppendLine("<body>");
+
+            // Iterar sobre os objetos JSON e adicionar ao HTML
+            htmlBuilder.AppendLine("\t<h2>Notas fiscais:</h2>");
+            htmlBuilder.AppendLine($"\t<p>Número de notas: {nNotas}</p>");
+            htmlBuilder.AppendLine($"\t<p>Número de produtos: {nProd}</p>");
+
+            htmlBuilder.AppendLine($"\t<p>Valor total dos produtos: {tValue}</p>");
+            htmlBuilder.AppendLine($"\t<p>Valor total do ICMS: {vIcms}</p>");
+            htmlBuilder.AppendLine($"\t<p>Valor total de tributos: {vTrib}</p>");
+            htmlBuilder.AppendLine($"\t<p>Valor total de frete: {vFrete}</p>");
+            
+            htmlBuilder.AppendLine("\t<h3>Notas:</h3>");
+            for (int i = 0; i < 6; i++){
+                htmlBuilder.AppendLine($"\t<a href=\"{htmlFiles[i]}\">Nota {i+1}</a><br/><br/>");
+            }
+
+            // Fechar o corpo e a tag HTML
+            htmlBuilder.AppendLine("</body>");
+            htmlBuilder.AppendLine("</html>");
+
+            File.WriteAllText(indexFile, htmlBuilder.ToString());
+        }      
+
+
+        static void transformJson(){
+            int nNotas = jsonFiles.Length;
+            int nProd = 0;
+            float tValue = .0f;
             float vIcms = .0f;
             float vFrete = .0f;
             float vTrib = .0f;
@@ -182,105 +166,67 @@ namespace trabalhoFinal
             for (int i = 0; i < 6; i++){
                 try
                 {
-                    string caminhoArquivoJSON = jsonFiles[i];
-                    string json = File.ReadAllText(caminhoArquivoJSON);
+                    string jsonPath = jsonFiles[i];
+                    string htmlPath = htmlFiles[i];
+
+                    string json = File.ReadAllText(jsonPath);
                     // Parse do JSON para um objeto JObject
                     JObject jsonObj = JObject.Parse(json);
 
-                    JToken totais = jsonObj.SelectToken("$.nfeProc.NFe.infNFe.total.ICMSTot")!;
-                    vFrete += (float) totais["vFrete"]!;
-                    vIcms += (float) totais["vICMS"]!;
-                    vTrib += (float) totais["vICMS"]! + (float) totais["vIPI"]! + (float) totais["vPIS"]! + (float) totais["vCOFINS"]!;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Ocorreu um erro: " + ex.Message);
-                }
-            }
-            Console.WriteLine($"\ta) Total de ICSM: {vIcms}.\n\tb) Valor aproximado dos tributos: {vTrib}\n\tc) Valor total de frete: {vFrete}.");
-
-        }
-
-        static void query3(){
-            Console.WriteLine("Query 3: Detalhes do produto com menor preço:");
-
-            float minValue = float.MaxValue;
-            JToken? prodBarato = null;
-
-            for (int i = 0; i < 6; i++){
-                try
-                {
-                    string caminhoArquivoJSON = jsonFiles[i];
-                    string json = File.ReadAllText(caminhoArquivoJSON);
-                    // Parse do JSON para um objeto JObject
-                    JObject jsonObj = JObject.Parse(json);
-
-                    JToken dets = jsonObj.SelectToken("$.nfeProc.NFe.infNFe.det")!;
-
-                    foreach(var prod in dets){
-                        if ( (float) prod["prod"]!["vProd"]! < minValue){
-                            prodBarato = prod["prod"]!;
-                            minValue = (float) prod["prod"]!["vProd"]!;
-                        }
-                    }                
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Ocorreu um erro: " + ex.Message);
-                }
-            }
-            Console.WriteLine(prodBarato);
-        }
-
-        static void query4(){
-            Console.WriteLine("Query 4: Detalhes da nota com maior imposto:");
-
-            float maxImp = float.MinValue;
-            JToken? notaMaisTax = null;
-
-            for (int i = 0; i < 6; i++){
-                try
-                {
-                    string caminhoArquivoJSON = jsonFiles[i];
-                    string json = File.ReadAllText(caminhoArquivoJSON);
-                    // Parse do JSON para um objeto JObject
-                    JObject jsonObj = JObject.Parse(json);
-
+                    //numero de produtos e valor dos produtos
+                    
+                    JToken prods = jsonObj.SelectToken("$.nfeProc.NFe.infNFe.det")!;
+                    nProd += prods.Count();
+                    foreach(var prod in prods){
+                        tValue += (float)prod["prod"]!["vProd"]!;
+                    }
+                    //total de imposto
                     JToken total = jsonObj.SelectToken("$.nfeProc.NFe.infNFe.total.ICMSTot")!;
+                    vFrete += (float) total["vFrete"]!;
 
-                    float impNota = (float) total["vICMS"]! + (float) total["vIPI"]! + (float) total["vPIS"]! + (float) total["vCOFINS"]!;
-
-                    if ( impNota > maxImp ){
-                        notaMaisTax = total.Parent?.Parent?.Parent?.Parent!["det"];
-                        maxImp = impNota;
-                    }          
+                    float IcmsNota = (float) total["vICMS"]!;
+                    vIcms += IcmsNota;
+                    
+                    float TribNota = (float) total["vICMS"]! + (float) total["vIPI"]! + (float) total["vPIS"]! + (float) total["vCOFINS"]!;
+                    vTrib += TribNota;
+                    createHTML(jsonObj, i, IcmsNota, TribNota);
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine("Ocorreu um erro: " + ex.Message);
                 }
             }
-            Console.WriteLine(notaMaisTax);
+            createHTMLindex(nNotas, nProd, tValue, vIcms, vFrete, vTrib);       
+
         }
 
         static void Main(string[] args)
         {
-            /*
-            */
+            
+
             Console.WriteLine("Conversão dos arquivos XML para JSON:");
-            convertXml();
+            XmlConverter converter = new();
+            converter.Convert(xmlFiles, jsonFiles);
 
             Console.WriteLine("-\nGeração do arquivo JSON Schema:");
-            generateSchema();
+            SchemaGenerator generator = new();
+            generator.Generate(xmlFiles[0], schemaFile);
+
 
             Console.WriteLine("-\nValidação dos arquivos JSON:");
-            validateJson();
+            JsonValidator validator = new();
+            validator.Validate(schemaFile, jsonFiles);
 
             Console.WriteLine("Queries no JSON:");
-            query1();
-            query2();
-            query3();
-            query4();
+            JsonQuerier querier = new();
+
+            query1(querier);
+            query2(querier);
+            query3(querier);
+            query4(querier);
+
+            Console.WriteLine("Transformação no JSON");
+            transformJson();
         }
     }
 }
