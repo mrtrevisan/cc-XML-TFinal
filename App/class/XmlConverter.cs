@@ -44,9 +44,5 @@ namespace Converter
             }
         }
 
-        internal void Convert(object xmlFiles, object jsonFiles)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

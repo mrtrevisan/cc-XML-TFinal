@@ -27,7 +27,7 @@ dotnet --version
 
 ### Executando o programa:
 
-* Clone este repositório usando https ou ssh (recomendado)
+* Clone este repositório usando https ou ssh (recomendado).
 
 * Navegue até a pasta raiz do repositório (via shell). Em seguida rode o comando:
 ```
@@ -43,4 +43,4 @@ dotnet run
 
 * Os arquivos Json e o Json Schema gerados estarão na pasta /App/json após a execução do programa.
 
-* Os arquivos html estarão na pasta /App/html
+* Os arquivos html estarão na pasta /App/html e o index.html na pasta /App.
