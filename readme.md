@@ -19,7 +19,7 @@ brew install --cask dotnet-sdk
 dotnet --version
 ```
 
-### Executando com outra versão do dotnet:
+### Executando com outra versão do .NET:
 
 * Pode-se executar o programa usando outra versão do dotnet, mas isso pode gerar resultados indesejados!
 
@@ -36,6 +36,8 @@ dotnet run
 ```
 
 * Se tudo correr bem, você deverá ver a saída do programa no terminal, demonstrando o passo a passo da execução do programa e os resultados das queries.
+
+### Estrutura do projeto:
 
 * O código fonte está no arquivo /App/Program.cs e na pasta /App/class.
 
